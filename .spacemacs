@@ -10,17 +10,17 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '()
  ;; List of configuration layers to load.
- dotspacemacs-configuration-layers '(github iedit javascript smt)
+ dotspacemacs-configuration-layers '(company-mode github iedit javascript osx smt)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '()
-)
+ )
 
 ;; Settings
 ;; --------
 
 (setq-default
  ;; Default theme applied at startup
- dotspacemacs-default-theme 'zenburn
+ dotspacemacs-default-theme 'tsdh-dark
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
  ;; the commands bound to the current keystrokes.
  dotspacemacs-guide-key-delay 0.4
@@ -37,7 +37,7 @@
  ;; specified with an installed package.
  ;; Not used for now.
  dotspacemacs-default-package-repository nil
-)
+ )
 
 ;; Initialization Hooks
 ;; --------------------
@@ -59,7 +59,7 @@
     (defun track-mouse (e))
     (setq mouse-sel-mode t
           mouse-yank-at-point t)
-  )
+    )
 
   (setq x-select-enable-clipboard t
         x-select-enable-primary t
@@ -68,7 +68,7 @@
         require-final-newline t
         visible-bell t
         ediff-window-setup-function 'ediff-setup-windows-plain)
-)
+  )
 
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.
@@ -125,3 +125,22 @@ This function is called at the very end of Spacemacs initialization."
 
 ;; Do not write anything in this section. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ahs-case-fold-search nil)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
+ '(ahs-idle-interval 0.25)
+ '(ahs-idle-timer 0 t)
+ '(ahs-inhibit-face-list nil)
+ '(paradox-github-token t)
+ '(ring-bell-function (quote ignore) t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))

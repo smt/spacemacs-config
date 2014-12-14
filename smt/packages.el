@@ -19,9 +19,8 @@
     ;; lein ;; BORKED
     nodejs-repl
     ;; om-mode
-    osx-clipboard
     pandoc-mode
-    php+-mode
+    php-mode
     php-boris
     php-boris-minor-mode
     php-refactor-mode
@@ -140,18 +139,12 @@ which require an initialization must be listed explicitly in the list.")
   (use-package nodejs-repl
     :defer t))
 
-(defun smt/init-osx-clipboard-mode ()
-  (use-package osx-clipboard-mode
-    :defer t
-    :init
-    (osx-clipboard-mode +1)))
-
 (defun smt/init-pandoc-mode ()
   (use-package pandoc-mode
     :defer t))
 
-(defun smt/init-php+-mode ()
-  (use-package php+-mode
+(defun smt/init-php-mode ()
+  (use-package php-mode
     :defer t))
 
 (defun smt/init-php-boris ()
