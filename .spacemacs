@@ -112,13 +112,14 @@ This function is called at the very end of Spacemacs initialization."
                                yaml-mode-hook
                                ))
 
+  (setq linum-format "%d ")
+
   ;; TODO move js2-mode settings to config layer
-  (setq
-    js2-basic-offset 2
-    js2-bounce-indent-p t)
+  (setq js2-basic-offset 2
+        js2-bounce-indent-p t)
   (add-hook 'js2-mode-hook (lambda ()
                              (electric-indent-mode -1)))
-)
+  )
 
 ;; Custom variables
 ;; ----------------
