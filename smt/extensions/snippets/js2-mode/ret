@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+#name : ret
+# --
+return ${0:result};

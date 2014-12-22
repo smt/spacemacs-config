@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : sdf
+# --
+var ${1:function_name} = function ($2) {
+   $3
+
+   $1 = function ($2) {
+       $0
+   };
+};

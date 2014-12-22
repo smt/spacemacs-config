@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : fun
+# --
+function ${1:function_name}($2) {
+    $0
+}

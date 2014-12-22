@@ -1,24 +1,23 @@
 (defvar smt-packages
   '(
     ;; package smts go here
-    aggressive-indent
-    cider
-    clojure-mode
-    clojure-quick-repls
     cljsbuild-mode
-    editorconfig
+    company-go
     dockerfile-mode
+    editorconfig
+    evil-matchit
+    geben
     go-mode
     haml-mode
-    haskell-mode
     jade-mode
     jekyll-modes
     js-doc
     jsx-mode
     karma
     ;; lein ;; BORKED
+    moz
     nodejs-repl
-    ;; om-mode
+    om-mode
     pandoc-mode
     php-mode
     php-boris
@@ -26,6 +25,7 @@
     php-refactor-mode
     ;; phpunit
     repl-toggle
+    rust-mode
     sass-mode
     skewer-mode
     stylus-mode
@@ -34,16 +34,7 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defvar smt-excluded-packages
-  '(
-    csharp-mode
-    hy-mode
-    p4
-    powershell
-    powershell-mode
-    sbt-mode
-    scala-mode2
-    )
+(defvar smt-excluded-packages '()
   "List of packages to exclude.")
 
 ;; For each package, define a function smt/init-<package-smt>
@@ -56,39 +47,28 @@ which require an initialization must be listed explicitly in the list.")
 ;; For more info on `use-package', see readme:
 ;; https://github.com/jwiegley/use-package
 
-(defun smt/init-aggressive-indent ()
-  (use-package aggressive-indent
-    :defer t
-    :init
-    (add-to-hooks #'aggressive-indent-mode '(clojure-mode-hook
-                                             emacs-lisp-mode-hook
-                                             lisp-mode-hook))
-    ;; (add-hook 'js2-mode-hook (lambda () (electric-indent-mode -1)))
-    :config
-    (spacemacs|hide-lighter aggressive-indent-mode)))
-
-(defun smt/init-cider ()
-  (use-package cider
-    :defer t))
-
-(defun smt/init-clojure-mode ()
-  (use-package clojure-mode
-    :defer t))
-
-(defun smt/init-clojure-quick-repls ()
-  (use-package clojure-quick-repls
-    :defer t))
-
 (defun smt/init-cljsbuild-mode ()
   (use-package cljsbuild-mode
+    :defer t))
+
+(defun smt/init-company-go ()
+  (use-package company-go
+    :defer t))
+
+(defun smt/init-dockerfile-mode ()
+  (use-package dockerfile-mode
     :defer t))
 
 (defun smt/init-editorconfig ()
   (use-package editorconfig
     :defer t))
 
-(defun smt/init-dockerfile-mode ()
-  (use-package dockerfile-mode
+(defun smt/init-evil-matchit ()
+  (use-package evil-matchit
+    :defer t))
+
+(defun smt/init-geben-mode ()
+  (use-package geben-mode
     :defer t))
 
 (defun smt/init-go-mode ()
@@ -97,10 +77,6 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun smt/init-haml-mode ()
   (use-package haml-mode
-    :defer t))
-
-(defun smt/init-haskell-mode ()
-  (use-package haskell-mode
     :defer t))
 
 (defun smt/init-jade-mode ()
@@ -135,8 +111,16 @@ which require an initialization must be listed explicitly in the list.")
   (use-package karma
     :defer t))
 
+(defun smt/init-moz ()
+  (use-package moz
+    :defer t))
+
 (defun smt/init-nodejs-repl ()
   (use-package nodejs-repl
+    :defer t))
+
+(defun smt/init-om-mode ()
+  (use-package om-mode
     :defer t))
 
 (defun smt/init-pandoc-mode ()
@@ -161,6 +145,10 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun smt/init-repl-toggle ()
   (use-package repl-toggle
+    :defer t))
+
+(defun smt/init-rust-mode ()
+  (use-package rust-mode
     :defer t))
 
 (defun smt/init-sass-mode ()

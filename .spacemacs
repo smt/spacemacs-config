@@ -10,7 +10,7 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '()
  ;; List of configuration layers to load.
- dotspacemacs-configuration-layers '(company-mode github iedit javascript osx smt)
+ dotspacemacs-configuration-layers '(clojure company-mode git html javascript org-repo-todo osx perspectives smt)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '()
  )
@@ -20,12 +20,15 @@
 
 (setq-default
  ;; Default theme applied at startup
- dotspacemacs-default-theme 'tsdh-dark
+ dotspacemacs-default-theme 'monokai
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
  ;; the commands bound to the current keystrokes.
  dotspacemacs-guide-key-delay 0.4
- ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
+ ;; If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).
  dotspacemacs-fullscreen-at-startup nil
+ ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
+ ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
+ dotspacemacs-maximized-at-startup t
  ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
  ;; overrides the default behavior of Emacs which recenters the point when
  ;; it reaches the top or bottom of the screen
@@ -67,7 +70,8 @@
         apropos-do-all t
         require-final-newline t
         visible-bell t
-        ediff-window-setup-function 'ediff-setup-windows-plain)
+        ediff-window-setup-function 'ediff-setup-windows-plain
+        git-enable-github-support t)
   )
 
 (defun dotspacemacs/config ()
@@ -82,7 +86,14 @@ This function is called at the very end of Spacemacs initialization."
   ;;               web-mode-code-indent-offset 4)
 
   ;; enable yasnippets globally, because why not?
-  (yas-global-mode)
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets"                        ;; personal snippets
+                           "~/.emacs.d/private/smt/extensions/snippets" ;; foo-mode and bar-mode snippet collection
+                           yas-installed-snippets-dir                   ;; the default collection
+                           ))
+  (yas-global-mode 1)
+
+  ;; use evil-matchit everywhere
+  (global-evil-matchit-mode 1)
 
   ;; kind of useless, as i tend to use terminal
   (setq powerline-default-separator 'wave)
@@ -112,13 +123,66 @@ This function is called at the very end of Spacemacs initialization."
                                yaml-mode-hook
                                ))
 
-  (setq linum-format "%d ")
+  (setq linum-format "%4d ")
 
   ;; TODO move js2-mode settings to config layer
   (setq js2-basic-offset 2
         js2-bounce-indent-p t)
   (add-hook 'js2-mode-hook (lambda ()
                              (electric-indent-mode -1)))
+
+  ;; Org mode agenda files
+  (setq org-agenda-files (list "~/Documents/todo.org")
+        org-agenda-start-on-weekday 0)
+  ;; (add-hook 'org-mode-hook (lambda ()
+  ;;                            (load-theme 'leuven t)
+  ;;                            (spacemacs/set-font "Inconsolata-dz" 12)))
+
+  (setq rcirc-server-alist
+        '(("irc.freenode.net"
+           :nick "smtudor"
+           :user-name "smtudor"
+           :full-name "Stephen Tudor"
+           :channels (
+                      "#clojurescript"
+                      "#docker"
+                      "#duckduckgo"
+                      "#emacs"
+                      "##javascript"
+                      "#meteor"
+                      "#Node.js"
+                      "#openvpn"
+                      "#reactjs"
+                      "#sass"
+                      "#tmux"
+                      "#vim"
+                      ))))
+
+  ;; (setq rcirc-authinfo
+  ;;       '(("freenode" nickserv "smtudor" "s3cr3t")))
+
+  (defvar rcirc-authinfo-file-name
+    "~/.rcirc-authinfo"
+    "File containing rcirc authentication passwords.
+The file consists of a single list, with each element itself a
+list with a SERVER-REGEXP string, a NICK-REGEXP string, a METHOD
+and the remaining method specific ARGUMENTS.  The valid METHOD
+symbols are `nickserv', `chanserv' and `bitlbee'.
+
+The required ARGUMENTS for each METHOD symbol are:
+  `nickserv': PASSWORD
+  `chanserv': CHANNEL PASSWORD
+  `bitlbee': PASSWORD
+
+Example:
+ ((\"freenode\" \"bob\" nickserv \"p455w0rd\")
+  (\"freenode\" \"bob\" chanserv \"#bobland\" \"passwd99\")
+  (\"bitlbee\" \"robert\" bitlbee \"sekrit\"))")
+
+  (defvar rcirc-auto-authenticate-flag (file-readable-p rcirc-authinfo-file-name)
+    "*Non-nil means automatically send authentication string to server.
+See also `rcirc-auth'")
+
   )
 
 ;; Custom variables
@@ -131,6 +195,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ac-ispell-requires 4)
  '(ahs-case-fold-search nil)
  '(ahs-default-range (quote ahs-range-whole-buffer))
  '(ahs-idle-interval 0.25)

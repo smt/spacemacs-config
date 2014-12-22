@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : case
+# --
+case '${1:case}':
+    $2
+    break;
+${3:case$0}}
